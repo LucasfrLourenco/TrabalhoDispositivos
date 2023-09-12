@@ -3,6 +3,8 @@ import { View, Text, StyleSheet, FlatList, Image, Button } from "react-native";
 import axios from "axios";
 import { useNavigation } from "@react-navigation/native";
 
+const navigation = useNavigation();
+
 const AnimesList = () => {
   const [data, setData] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
@@ -27,6 +29,10 @@ const AnimesList = () => {
     fetchData();
   }, [currentPage]);
 
+  const navigateToDetails = (anime) => {
+    navigation.navigate("Details", { anime });
+  };
+
   return (
     <View style={styles.container}>
       <Text style={styles.heading}>Lista de Animes</Text>
@@ -34,14 +40,16 @@ const AnimesList = () => {
         data={data}
         keyExtractor={(item) => item.mal_id.toString()}
         renderItem={({ item }) => (
-          <View style={styles.animeContainer}>
-            <Image
-              source={{ uri: item.images.jpg.image_url }}
-              style={styles.animeImage}
-            />
-            <Text style={styles.animeName}>{item.title}</Text>
-            <Text style={styles.animeYear}>Ano: {item.year}</Text>
-          </View>
+          <TouchableOpacity onPress={() => navigateToDetails(item)}>
+            <View style={styles.animeContainer}>
+              <Image
+                source={{ uri: item.images.jpg.image_url }}
+                style={styles.animeImage}
+              />
+              <Text style={styles.animeName}>{item.title}</Text>
+              <Text style={styles.animeYear}>Ano: {item.year}</Text>
+            </View>
+          </TouchableOpacity>
         )}
       />
       <View style={styles.pagination}>
