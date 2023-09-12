@@ -29,7 +29,7 @@ const Login = () => {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.heading}>Faça login</Text>
+      <Text style={styles.heading}>Faça o login</Text>
       <TextInput
         style={styles.input}
         placeholder="Email"
