@@ -2,8 +2,9 @@ import React from "react";
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 import Login from "./scr/screens/Login";
-import AnimesList from "./scr/screens/AnimesList";
 import Details from "./scr/screens/Details";
+import Favoritos from "./scr/screens/Favoritos";
+import AnimesList from "./scr/screens/AnimesList";
 
 const Stack = createStackNavigator();
 
@@ -14,6 +15,7 @@ const App = () => {
         <Stack.Screen name="Login" component={Login} />
         <Stack.Screen name="AnimesList" component={AnimesList} />
         <Stack.Screen name="Details" component={Details} />
+        <Stack.Screen name="Favoritos" component={Favoritos} />
       </Stack.Navigator>
     </NavigationContainer>
   );

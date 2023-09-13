@@ -1,14 +1,23 @@
 import React, { useState, useEffect } from "react";
-import { View, Text, StyleSheet, FlatList, Image, Button } from "react-native";
+import {
+  View,
+  Text,
+  StyleSheet,
+  FlatList,
+  Image,
+  TouchableOpacity,
+  Button,
+} from "react-native";
 import axios from "axios";
 import { useNavigation } from "@react-navigation/native";
-
-const navigation = useNavigation();
+import { HeaderRightButton } from "@react-navigation/elements";
 
 const AnimesList = () => {
   const [data, setData] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 8; // Número de itens por página
+  const [favoritos, setFavoritos] = useState([]); // Estado local para favoritos
+  const navigation = useNavigation();
 
   useEffect(() => {
     const fetchData = async () => {
@@ -33,6 +42,24 @@ const AnimesList = () => {
     navigation.navigate("Details", { anime });
   };
 
+  const toggleFavorito = (anime) => {
+    if (favoritos.some((item) => item.mal_id === anime.mal_id)) {
+      // Se o anime já estiver na lista de favoritos, remova-o
+      const novosFavoritos = favoritos.filter(
+        (item) => item.mal_id !== anime.mal_id
+      );
+      setFavoritos(novosFavoritos);
+    } else {
+      // Caso contrário, adicione-o aos favoritos
+      setFavoritos([...favoritos, anime]);
+    }
+  };
+
+  const navigateToFavoritos = () => {
+    // Passar os favoritos para a tela Favoritos ao navegar
+    navigation.navigate("Favoritos", { favoritos });
+  };
+
   return (
     <View style={styles.container}>
       <Text style={styles.heading}>Lista de Animes</Text>
@@ -49,9 +76,30 @@ const AnimesList = () => {
               <Text style={styles.animeName}>{item.title}</Text>
               <Text style={styles.animeYear}>Ano: {item.year}</Text>
             </View>
+            <TouchableOpacity onPress={() => toggleFavorito(item)}>
+              <View
+                style={[
+                  styles.favoriteButton,
+                  { flex: 0, alignSelf: "center" },
+                ]}
+              >
+                <Text style={styles.favoriteButtonText}>
+                  {favoritos.some((anime) => anime.mal_id === item.mal_id)
+                    ? "Remover dos Favoritos"
+                    : "Favoritar"}
+                </Text>
+              </View>
+            </TouchableOpacity>
           </TouchableOpacity>
         )}
       />
+      <TouchableOpacity
+        style={styles.favoritesButton}
+        onPress={navigateToFavoritos}
+      >
+        <Text style={styles.favoriteButtonText}>Favoritos</Text>
+      </TouchableOpacity>
+
       <View style={styles.pagination}>
         <Button
           style={styles.paginationButton}
@@ -110,6 +158,23 @@ const styles = StyleSheet.create({
   },
   animeYear: {
     fontSize: 16,
+    color: "white",
+  },
+  favoritesButton: {
+    backgroundColor: "#0d0e49",
+    padding: 15,
+    borderRadius: 8,
+    marginTop: 16,
+  },
+  favoriteButton: {
+    backgroundColor: "#3d0c0c",
+    padding: 12,
+    borderRadius: 10,
+    marginTop: 0,
+    marginBottom: 80,
+  },
+  favoriteButtonText: {
+    fontSize: 18,
     color: "white",
   },
   pagination: {

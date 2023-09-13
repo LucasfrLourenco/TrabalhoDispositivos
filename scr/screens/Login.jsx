@@ -7,7 +7,6 @@ const Login = () => {
   const [password, setPassword] = useState("");
   const navigation = useNavigation();
 
-  //verificação de email
   const isEmailValid = () => {
     const emailPattern = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
     return emailPattern.test(email);
@@ -23,13 +22,14 @@ const Login = () => {
     } else if (!isPasswordValid()) {
       alert("A senha deve ter pelo menos 6 caracteres.");
     } else {
+      // Autenticação bem-sucedida
       navigation.navigate("AnimesList");
     }
   };
 
   return (
     <View style={styles.container}>
-      <Text style={styles.heading}>Faça o login</Text>
+      <Text style={styles.heading}>Faça seu login</Text>
       <TextInput
         style={styles.input}
         placeholder="Email"
@@ -51,6 +51,7 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
+    backgroundColor: "#04c5ff45",
   },
   heading: {
     fontSize: 24,

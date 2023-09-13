@@ -18,7 +18,6 @@ const Details = ({ route }) => {
   );
 };
 
-// Estilos.
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -44,6 +43,7 @@ const styles = StyleSheet.create({
     marginBottom: 16,
     color: "white",
   },
+  // Outros estilos...
 });
 
 export default Details;
