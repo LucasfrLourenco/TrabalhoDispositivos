@@ -1,6 +1,13 @@
 import React, { useState } from "react";
-import { View, Text, TextInput, Button, StyleSheet } from "react-native";
+import {
+  View,
+  Text,
+  TextInput,
+  TouchableOpacity,
+  StyleSheet,
+} from "react-native";
 import { useNavigation } from "@react-navigation/native";
+import { Ionicons } from "@expo/vector-icons";
 
 const Login = () => {
   const [email, setEmail] = useState("");
@@ -22,7 +29,6 @@ const Login = () => {
     } else if (!isPasswordValid()) {
       alert("A senha deve ter pelo menos 6 caracteres.");
     } else {
-      // Autenticação bem-sucedida
       navigation.navigate("AnimesList");
     }
   };
@@ -41,7 +47,10 @@ const Login = () => {
         secureTextEntry={true}
         onChangeText={(text) => setPassword(text)}
       />
-      <Button title="Login" onPress={handleLogin} />
+      <TouchableOpacity style={styles.button} onPress={handleLogin}>
+        <Text style={styles.buttonText}>Login</Text>
+        <Ionicons name="log-in" size={24} color="white" />
+      </TouchableOpacity>
     </View>
   );
 };
@@ -51,17 +60,32 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
-    backgroundColor: "#04c5ff45",
+    backgroundColor: "#EFEFEF",
+    paddingHorizontal: 20,
   },
   heading: {
     fontSize: 24,
     marginBottom: 20,
   },
   input: {
-    width: "80%",
+    width: "100%",
     padding: 10,
-    marginBottom: 10,
+    marginBottom: 20,
     borderBottomWidth: 1,
+    borderColor: "#04c5ff",
+  },
+  button: {
+    flexDirection: "row",
+    backgroundColor: "#04c5ff",
+    padding: 10,
+    borderRadius: 5,
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  buttonText: {
+    color: "white",
+    fontSize: 18,
+    marginRight: 10,
   },
 });
 

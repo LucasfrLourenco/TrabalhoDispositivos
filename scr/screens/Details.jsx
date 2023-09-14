@@ -18,6 +18,7 @@ const Details = ({ route }) => {
   );
 };
 
+// Estilos.
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -37,13 +38,15 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     marginBottom: 8,
     color: "white",
+    backgroundColor: "#3d0597",
+    borderRadius: 4,
+    padding: 8,
   },
   animeText: {
     fontSize: 18,
     marginBottom: 16,
     color: "white",
   },
-  // Outros estilos...
 });
 
 export default Details;
